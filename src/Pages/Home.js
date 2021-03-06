@@ -12,6 +12,7 @@ export default class HomePage extends Component {
            modal: false,
            main: '',
            side: '',
+           mobile: '',
     }
   }
 
@@ -21,12 +22,17 @@ export default class HomePage extends Component {
       const sections = res.data.sections;
       console.log(sections);
       sections.forEach(section => {
-        if(section.name == 'main-background'){
+        if(section.name == 'main'){
           this.setState({ 
               main: section.body_image,
           });
         }
-        if(section.name == 'side-image'){
+        if(section.name == 'side'){
+          this.setState({ 
+              side: section.body_image,
+          });
+        }
+        if(section.name == 'mobile'){
           this.setState({ 
               side: section.body_image,
           });
@@ -82,7 +88,7 @@ export default class HomePage extends Component {
 
               </div>
 
-               <div className={`${style.frame} ${style.frame_3}`} style={{backgroundImage: `url(${ (this.state.frame3!=='') ? this.state.frame3 : '' })`}}>
+               <div className={`${style.frame} ${style.frame_3}`} style={{backgroundImage: `url(${ (this.state.mobile!=='') ? this.state.mobile : '' })`}}>
                       {/* <NavLink exact to={`/album/${this.state.name3}`}></NavLink>
                       <input type="hidden" id="frame3-url" value={this.state.frame3}/>
                       <input type="hidden" id="frame3" value={this.state.frame3id}/>
