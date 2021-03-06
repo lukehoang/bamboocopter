@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
 import style from '../css/style.module.css';
 import { NavLink } from 'react-router-dom';
-import profile from '../img/profile.jpg';
+import axios from 'axios';
 
 export default class AboutPage extends Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+           modal: false,
+           main: ''
+    }
+  }
+
+  componentDidMount() {
+    axios.get(`https://api.bamboocopter.net/api/getSectionsByLayout/about`)
+      .then(res => {
+      const sections = res.data.sections;
+      console.log(sections);
+      sections.forEach(section => {
+        if(section.name == 'profile-image'){
+          this.setState({ 
+              main: section.body_image,
+          });
+        }
+      });
+    })
+  }
 
 
   render() {
@@ -18,7 +40,7 @@ export default class AboutPage extends Component {
           </div>
         </div>
         <div className={style.container}>
-            <div className={`${style.bg}`} style={{backgroundImage: `url(${profile})`}}></div>
+            <div className={`${style.bg}`} style={{backgroundImage: `url(${this.state.main})`}}></div>
             <div className={`${style.text}`}>
               <h1>Luke hoang</h1>
               <p>I'm a full time web developer based in Philadelphia, PA. My goals are focus on content and conveying the message that what you want to send to your audiences.</p>

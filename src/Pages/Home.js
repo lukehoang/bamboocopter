@@ -9,55 +9,30 @@ export default class HomePage extends Component {
   constructor(props){
     super(props);
     this.state = {
-        frame1id: '',
-        frame2id: '',
-        frame3id: '',
-        frame4id: '',
-           frame1: '',
-           frame2: '',
-           frame3: '',
-           frame4: '',
-           currentFrame : '',
-           albums: [],
-           layouts: [],
            modal: false,
-           name1: '',
-           name2: '',
-           name3: '',
-           name4: '',
+           main: '',
+           side: '',
     }
   }
 
   componentDidMount() {
-    // this.fetchData();
-  }
-
-
-  fetchData(){
-    // axios.get(`https://api.lukemhoang.com/layouts`)
-    //     .then(res => {
-    //     const result = res.data;
-    //     const layouts = result[0];
-    //     this.setState({ 
-    //         frame1 : layouts.albumUrl[0].frame1URL,
-    //         frame2 : layouts.albumUrl[0].frame2URL,
-    //         frame3 : layouts.albumUrl[0].frame3URL,
-    //         frame4 : layouts.albumUrl[0].frame4URL,
-
-    //         frame1id: layouts.albumId[0].frame1,
-    //         frame2id: layouts.albumId[0].frame2,
-    //         frame3id: layouts.albumId[0].frame3,
-    //         frame4id: layouts.albumId[0].frame4,
-
-    //         name1 : layouts.albumUrl[0].frame1URL.split('/').pop().split('.')[0],
-    //         name2 : layouts.albumUrl[0].frame2URL.split('/').pop().split('.')[0],
-    //         name3 : layouts.albumUrl[0].frame3URL.split('/').pop().split('.')[0],
-    //         name4 : layouts.albumUrl[0].frame4URL.split('/').pop().split('.')[0],
-    //     });
-    // })
-  }
-  getFrame(){
-    //
+    axios.get(`https://api.bamboocopter.net/api/getSectionsByLayout/home`)
+      .then(res => {
+      const sections = res.data.sections;
+      console.log(sections);
+      sections.forEach(section => {
+        if(section.name == 'main-background'){
+          this.setState({ 
+              main: section.body_image,
+          });
+        }
+        if(section.name == 'side-image'){
+          this.setState({ 
+              side: section.body_image,
+          });
+        }
+      });
+    })
   }
 
   render() {
@@ -66,7 +41,7 @@ export default class HomePage extends Component {
           <div className={style.container}>
               <div className={`${style.col_lg}`}>
                   
-                    <div className={`${style.frame}`} style={{backgroundImage: `url(${ (this.state.frame2!=='') ? this.state.frame2 : '' })`}}>
+                    <div className={`${style.frame}`} style={{backgroundImage: `url(${ (this.state.main!=='') ? this.state.main : '' })`}}>
                       {/* <NavLink exact to={`/album/${this.state.name2}`}></NavLink>
                       <input type="hidden" id="frame2-url" value={this.state.frame2}/>
                       <input type="hidden" id="frame2" value={this.state.frame2id}/>
@@ -87,7 +62,7 @@ export default class HomePage extends Component {
                     </div>
                   </div>
 
-                   <div className={`${style.frame}`} style={{backgroundImage: `url(${ (this.state.frame1!=='') ? this.state.frame1 : '' })`}}>
+                   <div className={`${style.frame}`} style={{backgroundImage: `url(${ (this.state.side!=='') ? this.state.side : '' })`}}>
                          {/* <NavLink exact to={`/album/${this.state.name1}`}></NavLink>
                         <input type="hidden" id="frame1-url" value={this.state.frame1}/>
                         <input type="hidden" id="frame1" value={this.state.frame1id}/>
