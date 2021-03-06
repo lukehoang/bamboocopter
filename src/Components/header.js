@@ -64,7 +64,7 @@ export default class Header extends Component{
                     <div className={`${style.wrapper} ${style.flex}`}>
                         <div className={style.brand}>
                             <h1><NavLink exact to="/">Bamboocopter</NavLink></h1>
-                            <h5>Luke Hoang - Travel Photo-Developer</h5>
+                            <h5>Luke Hoang - Travel Developer</h5>
                         </div>
                         <div className={style.nav_icon}>
                             <i className={`fa fa-bars fa-2x ${!this.state.open ? style.hidden : ''}`} aria-hidden="true" onClick={()=>(this.toggleMenu('open'))}></i><i className={`fa fa-times fa-2x ${!this.state.close ? style.hidden : ''}`} aria-hidden="true" onClick={()=>(this.toggleMenu('close'))}></i>
