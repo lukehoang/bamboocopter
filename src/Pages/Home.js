@@ -34,7 +34,7 @@ export default class HomePage extends Component {
         }
         if(section.name == 'mobile'){
           this.setState({ 
-              side: section.body_image,
+              mobile: section.body_image,
           });
         }
       });
