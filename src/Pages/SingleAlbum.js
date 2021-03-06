@@ -9,7 +9,8 @@ export default class SingleAlbum extends Component {
         super(props);
         this.state = {
             albumName: '',
-            albums: [],
+            album: [],
+            photos: [],
         }
     }   
 
@@ -20,27 +21,26 @@ export default class SingleAlbum extends Component {
 
     //middlewares
     fetchData(){
-        let thisAlbumNam = this.props.name;
-        axios.get(`https://api.lukemhoang.com/photos/` + thisAlbumNam)
-          .then(res => {
-            var albums = res.data;
-            var photos = [];
-            albums.forEach(album => {
-                let id = album._id;
-                let collections = album.imgCollection;
-                collections.forEach(collection => {
-                    photos.push({url: collection, id : id});
+        let thisAlbumName = this.props.name;
+        axios.get(`https://api.bamboocopter.net/api/getAlbumByName/` + thisAlbumName)
+        .then(res => {
+          var album = res.data.album;
+           this.setState({ 
+                album,
+                albumId : album[0]['id']
+            });
+
+          axios.get(`https://api.bamboocopter.net/api/getPhotosByAlbumId/` + album[0]['id'])
+            .then(res => {
+                var photos = res.data.photos;
+                console.log(photos);
+                this.setState({ 
+                    photos
                 });
-            });
-
-            albums = photos;
-
-            console.log(photos);
-
-            this.setState({ 
-                albums
-            });
-        });
+            });//end 2nd ajax
+        
+        }); //end first ajax
+        
     }
 
 
@@ -55,9 +55,9 @@ export default class SingleAlbum extends Component {
                        
                     </div>
                     <div className={`${style.content}`}>
-                    { this.state.albums.map(album => 
-                        <div key={album.url} className={`${style.itemPhoto}`}>
-                            <img src={`${album.url}`}/>
+                    { this.state.photos.map(photo => 
+                        <div key={photo.id} className={`${style.itemPhoto}`}>
+                            <img src={`${photo.url}`}/>
                         </div>
                     )}
                     </div>

@@ -13,13 +13,15 @@ export default class TravelPage extends Component {
     
   
   componentDidMount() {
-    axios.get(`https://api.lukemhoang.com/albums`)
-      .then(res => {
-        const albums = res.data;
+    axios.get(`https://api.bamboocopter.net/api/getAlbums`)
+    .then(res => {
+        const albums = res.data.albums;
+        // console.log(albums);
         this.setState({ 
             albums
         });
     })
+
   }
 
 
@@ -35,13 +37,13 @@ export default class TravelPage extends Component {
         </div>
        <div className={style.container}>
             { this.state.albums.map(album => 
-              <div key={album.name} className={`${style.item}`} >
-                  <div className={`${style.bg}`} style={{backgroundImage: `url(${album.path})`}}>
+              <div key={album.id} className={`${style.item}`} >
+                  <div className={`${style.bg}`} style={{backgroundImage: `url(${album.cover_photo})`}}>
                     <NavLink exact to={`/album/${album.name.split(' ').join('-')}`}></NavLink>
                     <div className={`${style.text}`}>
                       <h4 className={`${style.title}`}>{album.name}</h4>
                       <p>{album.location}</p>
-                      <p>{album.createdDate}</p>
+                      <p>{album.date}</p>
                       {/* <p>{album.caption}</p> */}
                     </div>
                 </div>
