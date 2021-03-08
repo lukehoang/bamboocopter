@@ -82,7 +82,7 @@ export default class SingleAlbum extends Component {
                         </div>
                     )}
                     </div> */}
-                     <Gallery photos={this.state.newPhotos} />
+                     <Gallery photos={this.state.newPhotos} className={style.gallery}/>
                 </div>
 
 

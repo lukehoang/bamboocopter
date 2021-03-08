@@ -583,7 +583,7 @@ Main
     margin-left: 11%;
 }
 .singleAlbum img{
-    height: 79vh;
+    /* height: 79vh; */
 }
 .singleAlbum .container{
     max-width: 1550px;
@@ -633,6 +633,19 @@ Main
 }
 .singleAlbum .heading h1{
     font-size: 2.2rem;
+}
+
+.singleAlbum div:last-child>div:last-child{
+    justify-content: space-evenly;
+}
+
+.singleAlbum img{
+    height: 350px;
+    /* object-fit: cover;
+    object-position: center; */
+    /* width: 32%; */
+    margin: 10px !important;
+    outline: 7px solid #fff;
 }
 
 /******************************
@@ -1111,3 +1124,14 @@ Responsive CSS
 }
 
 
+
+@media (max-width: 450px){
+    .singleAlbum img{
+        width: 100%;
+        margin: 25px 0px !important;
+    }
+    .singleAlbum div:last-child>div:last-child{
+       display: block !important;
+    }
+    
+}
