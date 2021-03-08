@@ -570,8 +570,23 @@ Main
  Single Album
  
  ******************************/
+ .singleAlbum .container:first-child{
+    justify-content: flex-start;
+    position: absolute;
+    top: 20px;
+    align-items: center;
+    height: 90px;
+    width: 50%;
+}
+.singleAlbum .brand{
+    z-index: 9;
+    margin-left: 11%;
+}
 .singleAlbum img{
     height: 79vh;
+}
+.singleAlbum .container{
+    max-width: 1550px;
 }
 .singleAlbum .content{
     width: 100%;
@@ -1037,6 +1052,11 @@ Responsive CSS
     .about .bg {
         height: 100vh;
     }
+
+    /* Single */
+    .singleAlbum .container:first-child{
+        display: none;
+    }
 }
 
 @media (max-width: 579px){
@@ -1081,6 +1101,12 @@ Responsive CSS
     .layout .frame_3 {
         height: 20vh;
         width: 60%;
+    }
+
+
+    /* Single Album */
+    .singleAlbum .heading h1{
+        margin-top: 25px;
     }
 }
 

@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useCallback } from 'react';
 import style from '../css/style.module.css';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
+import { render } from "react-dom";
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
 
 export default class SingleAlbum extends Component {
   
@@ -11,6 +15,7 @@ export default class SingleAlbum extends Component {
             albumName: '',
             album: [],
             photos: [],
+            newPhotos: [],
         }
     }   
 
@@ -34,8 +39,17 @@ export default class SingleAlbum extends Component {
             .then(res => {
                 var photos = res.data.photos;
                 console.log(photos);
+                var newPhotos = [];
+                photos.forEach(photo => {
+                    newPhotos.push({
+                        src: photo.url,
+                        // width: 4,
+                        // height: 3
+                    })
+                });
                 this.setState({ 
-                    photos
+                    photos,
+                    newPhotos : newPhotos
                 });
             });//end 2nd ajax
         
@@ -50,20 +64,32 @@ export default class SingleAlbum extends Component {
         return(
             <div className={style.singleAlbum}>
                 <div className={style.container}>
+                    <div className={style.brand}>
+                        <h1><NavLink exact to="/">Bamboocopter</NavLink></h1>
+                        
+                        <h5>Luke Hoang - Travel Developer</h5>
+                    </div>
+                </div>
+                <div className={style.container}>
                     <div className={`${style.heading}`}>
                         <h1 id="txt-albumName">{this.props.name.split('-').join(' ')}</h1>
                        
                     </div>
-                    <div className={`${style.content}`}>
+                    {/* <div className={`${style.content}`}>
                     { this.state.photos.map(photo => 
                         <div key={photo.id} className={`${style.itemPhoto}`}>
                             <img src={`${photo.url}`}/>
                         </div>
                     )}
-                    </div>
+                    </div> */}
+                     <Gallery photos={this.state.newPhotos} />
                 </div>
+
+
                
             </div>
+           
+
         );
     }
 }

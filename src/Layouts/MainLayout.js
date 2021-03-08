@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 
 import style from '../css/style.module.css';
+import  '../css/react-gallery.css';
 // //Components
 import Header from '../Components/header.js';
 import Footer from '../Components/footer';
